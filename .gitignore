@@ -1,4 +1,4 @@
 node_modules
 index.js
 yarn.lock
-package.json
+dist

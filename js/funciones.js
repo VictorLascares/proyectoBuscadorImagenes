@@ -47,7 +47,6 @@ function mostrarImagenes(imagenes) {
     // Iterar sobre el arreglo de imagenes y construir el HTML
     imagenes.forEach(imagen => {
         const { previewURL, likes, views, largeImageURL } = imagen;
-        console.log(largeImageURL);
 
         const contenedorImagen = document.createElement('div');
         // contenedorImagen.classList.add(');
