@@ -1,5 +1,9 @@
 import {resultado} from './selectores.js';
 
+
+const registroPorPagina = 50;
+let totalPaginas;
+
 function validarFormulario(e) {
     e.preventDefault();
     const terminoBusqueda = document.querySelector('#termino').value;
@@ -33,10 +37,13 @@ function mostrarAlerta(mensaje) {
 
 function buscarImagenes(busqueda) {
     const key = '29825345-23b0aa787e49a42d52cd70573';
-    const url = `https://pixabay.com/api?key=${key}&q=${busqueda}`;
+    const url = `https://pixabay.com/api?key=${key}&q=${busqueda}&per_page=100`;
     fetch(url)
         .then(respuesta => respuesta.json())
-        .then(resultado => mostrarImagenes(resultado.hits))
+        .then(resultado => {
+            totalPaginas = calcularPaginas(resultado.totalHits);
+            mostrarImagenes(resultado.hits)
+        })
         .catch(error => console.log(error));
 }
 
@@ -54,6 +61,7 @@ function mostrarImagenes(imagenes) {
         const contenidoImagen = document.createElement('a');
         contenidoImagen.href = largeImageURL;
         contenidoImagen.target = "_blank";
+        contenidoImagen.rel = "noopener noreferrer";
         contenidoImagen.classList.add('relative','flex','flex-col');
         
         const img = document.createElement('img');
@@ -86,6 +94,10 @@ function limpiarHTML() {
     while(resultado.firstChild) {
         resultado.removeChild(resultado.firstChild);
     }
+}
+
+function calcularPaginas(total) {
+    return Math.ceil(total/registroPorPagina);
 }
 
 
