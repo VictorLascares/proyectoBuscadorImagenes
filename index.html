@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador Imágenes Pixabay</title>
-    <link rel="stylesheet" href="css/tailwind.min.css">
+    <link rel="icon" type="image/png" href="#">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="css/tailwind.min.css"> -->
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
@@ -33,12 +35,12 @@
         </form>
     </div>
 
-    <div id="resultado" class="container mx-auto mt-10  flex flex-wrap"></div>
+    <div id="resultado" class="px-4 mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-2 "></div>
 
     <div id="paginacion" class="container mx-auto mb-10 text-center">
         
     </div>
 
-    <script src="js/app.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
