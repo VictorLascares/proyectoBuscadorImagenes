@@ -3,6 +3,7 @@ import {resultado} from './selectores.js';
 
 const registroPorPagina = 50;
 let totalPaginas;
+let iterador;
 
 function validarFormulario(e) {
     e.preventDefault();
@@ -20,6 +21,7 @@ function validarFormulario(e) {
 
 function mostrarAlerta(mensaje) {
     const alerta = document.querySelector('.alerta');
+// Generador que registra la cantidad de elementos de acuerdo a las paginas
 
     if (!alerta) {
         const alerta = document.createElement('p');
@@ -47,16 +49,22 @@ function buscarImagenes(busqueda) {
         .catch(error => console.log(error));
 }
 
+function *crearPaginador(total) {
+    for (let i = 1; i <= total; i++) {
+        yield i;
+    }
+}
+function calcularPaginas(total) {
+    return Math.ceil(total/registroPorPagina);
+}
 function mostrarImagenes(imagenes) {
     limpiarHTML();
-
 
     // Iterar sobre el arreglo de imagenes y construir el HTML
     imagenes.forEach(imagen => {
         const { previewURL, likes, views, largeImageURL } = imagen;
 
         const contenedorImagen = document.createElement('div');
-        // contenedorImagen.classList.add(');
 
         const contenidoImagen = document.createElement('a');
         contenidoImagen.href = largeImageURL;
@@ -70,7 +78,6 @@ function mostrarImagenes(imagenes) {
 
         const contenedorTexto = document.createElement('div');
         contenedorTexto.classList.add('p-4','w-full','h-full','absolute','bg-gradient-to-b','from-black/0','to-black/50','opacity-0','hover:opacity-100','flex','justify-end','items-end','gap-2','transition-all');
-
 
         const likesText = document.createElement('p');
         likesText.classList.add('text-white','text-lg','font-bold');
@@ -88,6 +95,7 @@ function mostrarImagenes(imagenes) {
         contenedorImagen.appendChild(contenidoImagen);
         resultado.appendChild(contenedorImagen);
     })
+    imprimirPaginador();
 }
 
 function limpiarHTML() {
@@ -96,9 +104,12 @@ function limpiarHTML() {
     }
 }
 
-function calcularPaginas(total) {
-    return Math.ceil(total/registroPorPagina);
+function imprimirPaginador() {
+    iterador = crearPaginador(totalPaginas);
+
 }
+
+
 
 
 
