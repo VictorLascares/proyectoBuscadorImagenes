@@ -38,17 +38,18 @@ function mostrarAlerta(mensaje) {
 }
 
 
-function buscarImagenes() {
+async function buscarImagenes() {
     const busqueda = document.querySelector('#termino').value;
     const key = '29825345-23b0aa787e49a42d52cd70573';
     const url = `https://pixabay.com/api?key=${key}&q=${busqueda}&per_page=${registroPorPagina}&page=${paginaActual}`;
-    fetch(url)
-        .then(respuesta => respuesta.json())
-        .then(resultado => {
-            totalPaginas = calcularPaginas(resultado.totalHits);
-            mostrarImagenes(resultado.hits)
-        })
-        .catch(error => console.log(error));
+    try {
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        totalPaginas = calcularPaginas(resultado.totalHits);
+        mostrarImagenes(resultado.hits)
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function *crearPaginador(total) {
